@@ -27,6 +27,8 @@ def handle_command(command, channel):
 
   slack_client.api_call("chat.postMessage", channel = channel, text = response, as_user = True)
 
+print(__name__)
+
 if __name__ == "__main__":
   READ_WEBSOCKET_DELAY = 1
 
