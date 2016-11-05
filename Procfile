@@ -1,1 +1,1 @@
-worker: python ken.py
+web: python ken.py
