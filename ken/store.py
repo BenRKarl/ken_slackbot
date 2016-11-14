@@ -42,5 +42,5 @@ def get_this_months_total(name):
     return purchases[0]["amount"]
   else:
     totals = map(lambda a: a["amount"], purchases)
-    return reduce(lambda a, b: a + b, purchases)
+    return reduce(lambda a, b: a + b, totals)
 
