@@ -1,6 +1,14 @@
+import os
 import datetime
 from pymongo import MongoClient
-client = MongoClient()
+
+mongodb_uri = os.environ.get("MONGODB_URI")
+
+if mongodb_uri:
+  client = MongoClient(mongodb_uri)
+else:
+  client = MongoClient()
+
 db = client.purchase_collection
 purchases = db.purchases
 
