@@ -9,7 +9,7 @@ if mongodb_uri:
 else:
   client = MongoClient()
 
-db = client.purchase_collection
+db = client.get_default_database()
 purchases = db.purchases
 
 def insert_purchase(body):
