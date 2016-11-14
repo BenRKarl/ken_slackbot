@@ -35,5 +35,11 @@ def get_this_months_purchases(name):
 
 def get_this_months_total(name):
   purchases = get_this_months_purchases(name)
-  return reduce(lambda a,b: a["amount"] + b["amount"], purchases)
+
+  if purchases.count == 0:
+    return 0
+  elif purchases.count == 1:
+    return purchases[0]["amount"]
+  else:
+    return reduce(lambda a,b: a["amount"] + b["amount"], purchases)
 
