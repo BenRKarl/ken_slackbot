@@ -1,11 +1,10 @@
 import time
 import os
 from slackclient import SlackClient
-from ken import handle_command
+from ken import Ken
 
 BOT_ID = os.environ.get("BOT_ID")
 AT_BOT = "<@" + BOT_ID + ">"
-EXAMPLE_COMMAND = "I spent"
 slack_client = SlackClient(os.environ.get("SLACK_BOT_TOKEN"))
 
 def parse_slack_output(slack_rtm_output):
@@ -15,21 +14,25 @@ def parse_slack_output(slack_rtm_output):
     for output in output_list:
       if output and 'text' in output and AT_BOT in output['text']:
         return output['text'].split(AT_BOT)[1].strip().lower(), \
-               output['channel']
+               output['channel'], \
+               output['user']
 
-  return None, None
+  return None, None, None
 
 if __name__ == "__main__":
   READ_WEBSOCKET_DELAY = 1
 
   if slack_client.rtm_connect():
+    ken = Ken()
+    ken.setup(slack_client)
+
     print("Ken is listening!")
 
     while True:
-      command, channel = parse_slack_output(slack_client.rtm_read())
+      command, channel, user = parse_slack_output(slack_client.rtm_read())
 
       if command and channel:
-        handle_command(command, channel)
+        ken.handle_command(command, channel, user)
 
       time.sleep(READ_WEBSOCKET_DELAY)
 

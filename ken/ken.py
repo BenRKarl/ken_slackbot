@@ -1,45 +1,40 @@
-import os
-import time
-from slackclient import SlackClient
+import store
+EXAMPLE_COMMAND = "i spent"
 
-BOT_ID = os.environ.get("BOT_ID")
-AT_BOT = "<@" + BOT_ID + ">"
-EXAMPLE_COMMAND = "do"
+class Ken:
+  def setup(self, chat):
+    self.chat = chat
 
-slack_client = SlackClient(os.environ.get("SLACK_BOT_TOKEN"))
+  def send_message(self, channel, message, user):
+    user_name = "<@" + user + ">"
+    personalized = user_name + ' ' + message
+    self.chat.api_call("chat.postMessage", channel = channel, text = personalized, as_user = True)
 
-def parse_slack_output(slack_rtm_output):
-  output_list = slack_rtm_output
+  def get_user_name(self, user_id):
+    names = {
+      "U0F19CBU2": "Ben"
+    }
 
-  if output_list and len(output_list) > 0:
-    for output in output_list:
-      if output and 'text' in output and AT_BOT in output['text']:
-        return output['text'].split(AT_BOT)[1].strip().lower(), \
-               output['channel']
+    return names[user_id]
 
-  return None, None
+  def handle_command(self, command, channel, user):
+    response = "I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\""
 
-def handle_command(command, channel):
-  response = "I don't understand what you mean..."
+    if command.startswith(EXAMPLE_COMMAND):
+      self.add_purchase(command, user)
 
-  if command.startswith(EXAMPLE_COMMAND):
-    response = "do what now?"
+      response = 'Your purchase was added to the database!'
+      self.send_message(channel, response, user)
+    else:
+      self.send_message(channel, response, user)
 
-  slack_client.api_call("chat.postMessage", channel = channel, text = response, as_user = True)
+  def add_purchase(self, purchase, user):
+    user = self.get_user_name(user)
+    parts = purchase.split()
+    amount = float(parts[2])
+    description = ' '.join(parts[4:])
 
-if __name__ == "__main__":
-  READ_WEBSOCKET_DELAY = 1
-
-  if slack_client.rtm_connect():
-    print("Ken is listening!")
-
-    while True:
-      command, channel = parse_slack_output(slack_client.rtm_read())
-
-      if command and channel:
-        handle_command(command, channel)
-
-      time.sleep(READ_WEBSOCKET_DELAY)
-
-  else:
-    print("Connection failed. Invalid Slack token or Bot ID.")
+    store.insert_purchase({
+      "name": user,
+      "description": description,
+      "amount": amount })
