@@ -1,5 +1,4 @@
 import store
-EXAMPLE_COMMAND = "i spent"
 
 class Ken:
   def setup(self, chat):
@@ -20,13 +19,15 @@ class Ken:
   def handle_command(self, command, channel, user):
     response = "I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\""
 
-    if command.startswith(EXAMPLE_COMMAND):
+    if command.startswith('i spent'):
       self.add_purchase(command, user)
-
       response = 'Your purchase was added to the database!'
-      self.send_message(channel, response, user)
-    else:
-      self.send_message(channel, response, user)
+    elif command.startswith('how much'):
+      name = self.get_user_name(user)
+      total = store.get_this_months_total(name)
+      response = 'So far this month you\'ve spent: ' + str(total)
+
+    self.send_message(channel, response, user)
 
   def add_purchase(self, purchase, user):
     user = self.get_user_name(user)
