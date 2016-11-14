@@ -1,1 +1,1 @@
-worker: python ken.py
+worker: python ken/server.py
