@@ -10,10 +10,5 @@ class KenTests(unittest.TestCase):
     user_name = 'Ben'
     self.assertEqual(test_bot.get_user_name(user_id), user_name)
 
-  # def test_send_message(self):
-  #   test_bot = ken.Ken()
-
-
-
 if __name__ == '__main__':
     unittest.main()
