@@ -2,7 +2,7 @@ import time
 import os
 import store
 from slackclient import SlackClient
-from ken import Ken
+from bot.ken import Ken
 
 BOT_ID = os.environ.get("BOT_ID")
 AT_BOT = "<@" + BOT_ID + ">"
