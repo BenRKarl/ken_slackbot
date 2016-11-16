@@ -1,5 +1,6 @@
 import time
 import os
+import store
 from slackclient import SlackClient
 from ken import Ken
 
@@ -24,7 +25,9 @@ if __name__ == "__main__":
 
   if slack_client.rtm_connect():
     ken = Ken()
-    ken.setup(slack_client)
+    ken.setup({
+      "chat": slack_client,
+      "store": store })
 
     print("Ken is listening!")
 

@@ -1,8 +1,7 @@
-import store
-
 class Ken:
-  def setup(self, chat):
-    self.chat = chat
+  def setup(self, options):
+    self.chat = options["chat"]
+    self.store = options["store"]
 
   def send_message(self, channel, message, user):
     user_name = "<@" + user + ">"
@@ -24,7 +23,7 @@ class Ken:
       response = 'Your purchase was added to the database!'
     elif command.startswith('how much'):
       name = self.get_user_name(user)
-      total = store.get_this_months_total(name)
+      total = self.store.get_this_months_total(name)
       response = 'So far this month you\'ve spent: ' + str(total)
 
     self.send_message(channel, response, user)
@@ -35,7 +34,7 @@ class Ken:
     amount = float(parts[2])
     description = ' '.join(parts[4:])
 
-    store.insert_purchase({
+    self.store.insert_purchase({
       "name": user,
       "description": description,
       "amount": amount })
