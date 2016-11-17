@@ -21,10 +21,13 @@ def insert_purchase(body):
   purchase_id = purchases.insert_one(purchase).inserted_id
   return purchase_id
 
-def get_this_months_purchases(name):
+def get_all_purchases_by_name(name):
+  return purchases.find({ "name": name })
+
+def get_recent_purchases_by_name(name):
   recent_purchases = []
   current_month = datetime.datetime.utcnow().month
-  all_purchases = purchases.find({ "name": name })
+  all_purchases = get_all_purchases_by_name(name)
 
   for purchase in all_purchases:
     if purchase["date"].month == current_month:
