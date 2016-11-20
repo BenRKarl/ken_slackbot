@@ -37,7 +37,7 @@ def get_recent_purchases_by_name(name):
   return recent_purchases
 
 def get_this_months_total(name):
-  purchases = get_this_months_purchases(name)
+  purchases = get_recent_purchases_by_name(name)
 
   if len(purchases) == 0:
     return 0
