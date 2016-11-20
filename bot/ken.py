@@ -1,60 +1,58 @@
 from helpers import parser
+from helpers import constants
 
 class Ken:
   def setup(self, options):
     self.chat = options["chat"]
     self.store = options["store"]
 
-  def set_current_user(self, user_name):
-    self.current_user = user_name
+  def set_current_user_id(self, user_id):
+    self.current_user_id = user_id
 
-  def set_current_channel(self, channel_id):
-    self.current_channel = channel_id
+  def set_current_channel_id(self, channel_id):
+    self.current_channel_id = channel_id
 
-  def get_current_user(self):
-    return self.current_user
+  def get_current_user_id(self):
+    return self.current_user_id
 
-  def get_current_channel(self):
-    return self.current_channel
+  def get_current_channel_id(self):
+    return self.current_channel_id
 
-  def send_message(self, message):
-    user = self.get_current_user()
-    channel = self.get_current_channel()
-    user_name = "<@" + user + ">"
-    personalized = user_name + ' ' + message
-    self.chat.api_call("chat.postMessage", channel = channel, text = personalized, as_user = True)
+  def get_current_user_name(self):
+    user_id = self.get_current_user_id()
+    user_name = constants.get_name_by_id(user_id)
+    return user_name
 
-  def get_user_name(self, user_id):
-    names = {
-      "U0F19CBU2": "Ben",
-      "U0F1FNUCQ": "Katie"
-    }
-
-    return names[user_id]
-
-  def handle_command(self, command, channel, user):
+  def handle_command(self, command, channel_id, user_id):
     response = "I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\""
-    self.set_current_user(user)
-    self.set_current_channel(channel)
+    self.set_current_user_id(user_id)
+    self.set_current_channel_id(channel_id)
 
     if command.startswith('i spent'):
-      self.add_purchase(command, user)
+      self.add_purchase(command, user_id)
       response = 'Your purchase was added to the database!'
     elif command.startswith('how much'):
-      name = self.get_user_name(user)
-      purchases = self.store.get_recent_purchases_by_name(name)
+      user_name = self.get_current_user_name()
+      purchases = self.store.get_recent_purchases_by_name(user_name)
       total = parser.summate_purchases(purchases)
       response = 'So far this month you\'ve spent: ' + str(total)
 
     self.send_message(response)
 
-  def add_purchase(self, purchase, user):
-    user = self.get_user_name(user)
+  def send_message(self, message):
+    user_id = self.get_current_user_id()
+    channel_id = self.get_current_channel_id()
+    user_callout = "<@" + user_id + ">"
+    personalized = user_callout + ' ' + message
+    self.chat.api_call("chat.postMessage", channel = channel_id, text = personalized, as_user = True)
+
+  def add_purchase(self, purchase, user_id):
+    user_name = self.get_current_user_name()
     parts = purchase.split()
     amount = float(parts[2])
     description = ' '.join(parts[4:])
 
     self.store.insert_purchase({
-      "name": user,
+      "name": user_name,
       "description": description,
       "amount": amount })
