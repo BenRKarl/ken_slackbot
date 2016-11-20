@@ -1,2 +1,9 @@
 # Ken SlackBot
 A custom SlackBot named Ken that handles basic tasks in my personal Slack channel.
+
+# To run in development mode:
+1. Set an environment variable: `MONGODB_URI`. For example, 'mongodb://localhost:27017/db'
+2. Run: `$ python lib/server.py`
+
+# To run tests:
+1. Run `$ python -m unittest discover -v -s test -p *.py`
