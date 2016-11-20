@@ -17,7 +17,9 @@ class Ken:
   def get_current_channel(self):
     return self.current_channel
 
-  def send_message(self, channel, message, user):
+  def send_message(self, message):
+    user = self.get_current_user()
+    channel = self.get_current_channel()
     user_name = "<@" + user + ">"
     personalized = user_name + ' ' + message
     self.chat.api_call("chat.postMessage", channel = channel, text = personalized, as_user = True)
@@ -32,6 +34,8 @@ class Ken:
 
   def handle_command(self, command, channel, user):
     response = "I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\""
+    self.set_current_user(user)
+    self.set_current_channel(channel)
 
     if command.startswith('i spent'):
       self.add_purchase(command, user)
@@ -42,7 +46,7 @@ class Ken:
       total = parser.summate_purchases(purchases)
       response = 'So far this month you\'ve spent: ' + str(total)
 
-    self.send_message(channel, response, user)
+    self.send_message(response)
 
   def add_purchase(self, purchase, user):
     user = self.get_user_name(user)
