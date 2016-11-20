@@ -5,6 +5,18 @@ class Ken:
     self.chat = options["chat"]
     self.store = options["store"]
 
+  def set_current_user(self, user_name):
+    self.current_user = user_name
+
+  def set_current_room(self, room_id):
+    self.current_room = room_id
+
+  def get_current_user(self):
+    return self.current_user
+
+  def get_current_room(self):
+    return self.current_room
+
   def send_message(self, channel, message, user):
     user_name = "<@" + user + ">"
     personalized = user_name + ' ' + message
