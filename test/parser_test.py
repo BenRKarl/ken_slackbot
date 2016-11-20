@@ -19,5 +19,11 @@ class ParserTests(unittest.TestCase):
         total = parser.summate_purchases(purchases)
         self.assertEqual(total, 35.0)
 
+    def test_filter_by_month(self):
+        purchases = mocks.purchases_in_different_months()
+        month = 11
+        filtered = parser.filter_by_month(purchases, month)
+        self.assertEqual(len(filtered), 1)
+
 if __name__ == '__main__':
     unittest.main()

@@ -26,15 +26,10 @@ def get_all_purchases_by_name(name):
   return purchases.find({ "name": name })
 
 def get_recent_purchases_by_name(name):
-  recent_purchases = []
   current_month = datetime.datetime.utcnow().month
   all_purchases = get_all_purchases_by_name(name)
-
-  for purchase in all_purchases:
-    if purchase["date"].month == current_month:
-      recent_purchases.append(purchase)
-
-  all_purchases.close()
+  purchase_list = parser.convert_to_list(all_purchases)
+  recent_purchases = parser.filter_by_month(all_purchases, current_month)
   return recent_purchases
 
 def get_this_months_total(name):
