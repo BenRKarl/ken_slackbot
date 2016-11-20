@@ -1,3 +1,5 @@
+from helpers import parser
+
 class Ken:
   def setup(self, options):
     self.chat = options["chat"]
@@ -24,7 +26,8 @@ class Ken:
       response = 'Your purchase was added to the database!'
     elif command.startswith('how much'):
       name = self.get_user_name(user)
-      total = self.store.get_this_months_total(name)
+      purchases = self.store.get_recent_purchases_by_name(name)
+      total = parser.summate_purchases(purchases)
       response = 'So far this month you\'ve spent: ' + str(total)
 
     self.send_message(channel, response, user)
