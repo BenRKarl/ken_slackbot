@@ -1,5 +1,6 @@
 import os
 import datetime
+import parser
 from pymongo import MongoClient
 
 mongodb_uri = os.environ.get("MONGODB_URI")
@@ -38,12 +39,4 @@ def get_recent_purchases_by_name(name):
 
 def get_this_months_total(name):
   purchases = get_recent_purchases_by_name(name)
-
-  if len(purchases) == 0:
-    return 0
-  elif len(purchases) == 1:
-    return purchases[0]["amount"]
-  else:
-    totals = map(lambda a: a["amount"], purchases)
-    return reduce(lambda a, b: a + b, totals)
-
+  return parser.summate_purchases(purchases)
