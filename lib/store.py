@@ -23,12 +23,13 @@ def insert_purchase(body):
   return purchase_id
 
 def get_all_purchases_by_name(name):
-  return purchases.find({ "name": name })
+  cursor = purchases.find({ "name": name })
+  purchase_list = parser.convert_to_list(cursor)
+  return purchase_list
 
 def get_recent_purchases_by_name(name):
   current_month = datetime.datetime.utcnow().month
   all_purchases = get_all_purchases_by_name(name)
-  purchase_list = parser.convert_to_list(all_purchases)
   recent_purchases = parser.filter_by_month(all_purchases, current_month)
   return recent_purchases
 
