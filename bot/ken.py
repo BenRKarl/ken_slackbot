@@ -10,7 +10,8 @@ class Ken:
 
   def get_user_name(self, user_id):
     names = {
-      "U0F19CBU2": "Ben"
+      "U0F19CBU2": "Ben",
+      "U0F1FNUCQ": "Katie"
     }
 
     return names[user_id]
