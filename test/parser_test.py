@@ -35,5 +35,12 @@ class ParserTests(unittest.TestCase):
     actual = parser.get_debtor(mock_totals_list)
     self.assertEqual(expected, actual)
 
+  def test_get_amount_owed(self):
+    biggest_spender = mock_totals_list[0]
+    debtor = mock_totals_list[1]
+    expected = ('Katie', 'Ben', 20)
+    actual = parser.get_debt_summary(biggest_spender, debtor)
+    self.assertEqual(expected, actual)
+
 if __name__ == '__main__':
   unittest.main()
