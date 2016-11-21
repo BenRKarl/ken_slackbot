@@ -24,5 +24,11 @@ class ParserTests(unittest.TestCase):
     filtered = parser.filter_by_month(purchases, month)
     self.assertEqual(len(filtered), 1)
 
+  def test_determine_amount_owed(self):
+    totals_list = [('Ben', 230), ('Katie', 190)]
+    expected = ('Katie', 'Ben', 120)
+    actual = parser.determine_amount_owed(totals_list)
+    self.assertEqual(actual, expected)
+
 if __name__ == '__main__':
   unittest.main()
