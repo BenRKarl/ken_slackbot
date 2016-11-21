@@ -20,3 +20,32 @@ def filter_by_month(purchase_list, month_number):
       filtered.append(purchase)
 
   return filtered
+
+def get_biggest_spender(totals_list):
+  biggest_spender = None
+  highest_amount = 0
+
+  for total in totals_list:
+    spent = total[1]
+
+    if spent > highest_amount:
+      highest_amount = spent
+      biggest_spender = total
+
+  return biggest_spender
+
+def get_debtor(totals_list):
+  debtor = None
+  lowest_amount = None
+
+  for total in totals_list:
+    spent = total[1]
+
+    if lowest_amount == None:
+      lowest_amount = spent
+
+    if spent < lowest_amount:
+      lowest_amount = spent
+      debtor = total
+
+  return debtor
