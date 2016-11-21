@@ -32,3 +32,10 @@ def get_recent_purchases_by_name(name):
   all_purchases = get_all_purchases_by_name(name)
   recent_purchases = parser.filter_by_month(all_purchases, current_month)
   return recent_purchases
+
+def get_recent_purchase_totals():
+  bens_purchases = get_recent_purchases_by_name('Ben')
+  katies_purchases = get_recent_purchases_by_name('Katie')
+  bens_total = parser.summate_purchases(bens_purchases)
+  katies_total = parser.summate_purchases(katies_purchases)
+  return [('Ben', bens_total), ('Katie', katies_total)]
