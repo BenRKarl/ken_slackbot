@@ -49,3 +49,10 @@ def get_debtor(totals_list):
       debtor = total
 
   return debtor
+
+def get_debt_summary(biggest_spender, debtor):
+  biggest_spender_name = biggest_spender[0]
+  debtor_name = debtor[0]
+  difference = biggest_spender[1] - debtor[1]
+  amount_owed = difference / 2
+  return (debtor_name, biggest_spender_name, amount_owed)
