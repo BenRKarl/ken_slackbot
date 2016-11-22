@@ -38,6 +38,8 @@ class Ken:
       self.handle_new_purchase(command)
     elif command.startswith('how much'):
       self.handle_get_total_request()
+    elif command.startswith('who owes'):
+      self.handle_debt_request()
     else:
       self.send_message("I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\"")
 
@@ -62,6 +64,14 @@ class Ken:
     purchases = self.store.get_recent_purchases_by_name(user_name)
     total = parser.summate_purchases(purchases)
     self.send_message('So far this month you\'ve spent: ' + str(total))
+
+  def handle_debt_request(self):
+    recent_purchases = self.store.get_recent_purchase_totals()
+    biggest_spender = parser.get_biggest_spender(recent_purchases)
+    debtor = parser.get_debtor(recent_purchases)
+    summary = parser.get_debt_summary(biggest_spender, debtor)
+    message = self.debt_summary_message(summary)
+    self.send_message(message)
 
   def send_message(self, message):
     user_id = self.get_current_user_id()
