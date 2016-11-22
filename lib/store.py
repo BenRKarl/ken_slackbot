@@ -1,6 +1,6 @@
 import os
 import datetime
-import parser
+from helpers import parser
 from pymongo import MongoClient
 
 mongodb_uri = os.environ.get("MONGODB_URI")
