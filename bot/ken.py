@@ -24,6 +24,12 @@ class Ken:
     user_name = constants.get_name_by_id(user_id)
     return user_name
 
+  def debt_summary_message(self, debt_summary):
+    debtor_id = constants.get_id_by_name(debt_summary[0])
+    spender_id = constants.get_id_by_name(debt_summary[1])
+    amount_owed = str(debt_summary[2])
+    return '<@' + debtor_id + '> owes <@' + spender_id + '> $' + amount_owed
+
   def handle_command(self, command, channel_id, user_id):
     self.set_current_user_id(user_id)
     self.set_current_channel_id(channel_id)
