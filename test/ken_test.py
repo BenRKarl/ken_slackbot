@@ -34,5 +34,12 @@ class KenTests(unittest.TestCase):
     returned = test_bot.get_current_channel_id()
     self.assertEqual(returned, test_channel)
 
+  def test_debt_summary_message(self):
+    test_bot = Ken()
+    test_summary = ('Ben', 'Katie', 100.23)
+    expected = '<@U0F19CBU2> owes <@U0F1FNUCQ> $100.23'
+    actual = test_bot.debt_summary_message(test_summary)
+    self.assertEqual(expected, actual)
+
 if __name__ == '__main__':
     unittest.main()
