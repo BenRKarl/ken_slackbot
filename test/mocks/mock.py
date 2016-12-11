@@ -22,6 +22,9 @@ non_november_purchase = {
     "description": "may stuff" }
 
 def single_purchase():
+    return first_mock_purchase
+
+def single_purchase_in_list():
     return [ first_mock_purchase ]
 
 def multiple_purchases():

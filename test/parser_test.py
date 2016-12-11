@@ -10,7 +10,7 @@ class ParserTests(unittest.TestCase):
     self.assertEqual(total, 0)
 
   def test_summate_single_purchase(self):
-    purchase = mock.single_purchase()
+    purchase = mock.single_purchase_in_list()
     total = parser.summate_purchases(purchase)
     self.assertEqual(total, 10.0)
 
@@ -40,6 +40,12 @@ class ParserTests(unittest.TestCase):
     debtor = mock_totals_list[1]
     expected = ('Katie', 'Ben', 20)
     actual = parser.get_debt_summary(biggest_spender, debtor)
+    self.assertEqual(expected, actual)
+
+  def test(self):
+    purchase = mock.single_purchase()
+    expected = "Ben\'s purchase of $10.0 on toast was deleted from the database."
+    actual = parser.build_deletion_message(purchase)
     self.assertEqual(expected, actual)
 
 if __name__ == '__main__':
