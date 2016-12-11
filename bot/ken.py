@@ -30,6 +30,9 @@ class Ken:
     amount_owed = str(debt_summary[2])
     return '<@' + debtor_id + '> owes <@' + spender_id + '> $' + amount_owed
 
+  def get_help_message(self):
+    return constants.get_help_message()
+
   def handle_command(self, command, channel_id, user_id):
     self.set_current_user_id(user_id)
     self.set_current_channel_id(channel_id)
@@ -40,6 +43,8 @@ class Ken:
       self.handle_get_total_request()
     elif command.startswith('who owes'):
       self.handle_debt_request()
+    elif command.startswith('help'):
+      self.handle_help_request()
     else:
       self.send_message("I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\"")
 
@@ -72,6 +77,9 @@ class Ken:
     summary = parser.get_debt_summary(biggest_spender, debtor)
     message = self.debt_summary_message(summary)
     self.send_message(message)
+
+  def handle_help_request(self):
+    self.send_message(self.get_help_message())
 
   def send_message(self, message):
     user_id = self.get_current_user_id()
