@@ -42,5 +42,11 @@ class ParserTests(unittest.TestCase):
     actual = parser.get_debt_summary(biggest_spender, debtor)
     self.assertEqual(expected, actual)
 
+  def test_parse_purchase_amount(self):
+    mock_amount = '$40.9'
+    expected = 40.90
+    actual = parser.parse_purchase_amount(mock_amount)
+    self.assertEqual(expected, actual)
+
 if __name__ == '__main__':
   unittest.main()
