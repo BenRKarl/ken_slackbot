@@ -58,8 +58,7 @@ def get_debt_summary(biggest_spender, debtor):
   return (debtor_name, biggest_spender_name, amount_owed)
 
 def build_deletion_message(purchase):
-  name = purchase["name"]
   amount = purchase["amount"]
   description = purchase["description"]
-  return name + "\'s purchase of $" + str(amount) + " on " + description + " was deleted from the database."
+  return "your purchase of $" + str(amount) + " on " + description + " was deleted from the database."
 

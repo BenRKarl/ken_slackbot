@@ -14,6 +14,9 @@ def get_id_by_name(name):
 
   return ids[name]
 
+def no_purchase_response():
+  return "That purchase was not found or has already been deleted."
+
 def get_help_message():
   return """Here are my commands:\n
             1. To save a purchase: *_@ken I spent 34.99 on tomatoes_*\n

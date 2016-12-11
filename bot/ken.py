@@ -7,6 +7,7 @@ class Ken:
   def setup(self, options):
     self.chat = options["chat"]
     self.store = options["store"]
+    self.last_purchase = None
 
   def set_current_user_id(self, user_id):
     self.current_user_id = user_id
@@ -34,6 +35,9 @@ class Ken:
   def get_help_message(self):
     return constants.get_help_message()
 
+  def deletion_failed_message(self):
+    return constants.no_purchase_response()
+
   def handle_command(self, command, channel_id, user_id):
     self.set_current_user_id(user_id)
     self.set_current_channel_id(channel_id)
@@ -47,6 +51,8 @@ class Ken:
       self.handle_debt_request()
     elif cleaned.startswith('help'):
       self.handle_help_request()
+    elif cleaned.startswith('delete'):
+      self.handle_purchase_deletion()
     else:
       self.send_message("I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\"")
 
@@ -60,11 +66,20 @@ class Ken:
     amount = message_parser.parse_purchase_amount(parts[2])
     description = ' '.join(parts[4:])
 
-    self.store.insert_purchase({
+    self.last_purchase = self.store.insert_purchase({
       "name": user_name,
       "description": description,
       "amount": amount
     })
+
+  def handle_purchase_deletion(self):
+    message = self.deletion_failed_message()
+    deleted = self.store.delete_purchase(self.last_purchase)
+
+    if (deleted != False):
+      message = parser.build_deletion_message(deleted)
+
+    self.send_message(message)
 
   def handle_get_total_request(self):
     user_name = self.get_current_user_name()

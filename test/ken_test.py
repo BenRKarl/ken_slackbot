@@ -1,6 +1,6 @@
 import unittest
 from bot.ken import Ken
-from helpers.constants import get_help_message
+from helpers import constants
 mock_user_id = 'U0F19CBU2'
 mock_channel_id = 12345
 mock_user_name = 'Test'
@@ -45,7 +45,13 @@ class KenTests(unittest.TestCase):
   def test_get_help_message(self):
     test_bot = Ken()
     actual = test_bot.get_help_message()
-    expected = get_help_message()
+    expected = constants.get_help_message()
+    self.assertEqual(expected, actual)
+
+  def test_deletion_failed_message(self):
+    test_bot = Ken()
+    actual = test_bot.deletion_failed_message()
+    expected = constants.no_purchase_response()
     self.assertEqual(expected, actual)
 
 

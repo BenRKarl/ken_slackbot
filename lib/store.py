@@ -22,6 +22,16 @@ def insert_purchase(body):
   purchase_id = purchases.insert_one(purchase).inserted_id
   return purchase_id
 
+def delete_purchase(purchase_id):
+  if (purchase_id == None): return False
+  cursor = purchases.find({ "_id": purchase_id})
+  purchase_list = parser.convert_to_list(cursor)
+
+  if (len(purchase_list) == 0): return False
+
+  purchases.delete_one({"_id": purchase_id})
+  return purchase_list[0]
+
 def get_all_purchases_by_name(name):
   cursor = purchases.find({ "name": name })
   purchase_list = parser.convert_to_list(cursor)

@@ -42,9 +42,9 @@ class ParserTests(unittest.TestCase):
     actual = parser.get_debt_summary(biggest_spender, debtor)
     self.assertEqual(expected, actual)
 
-  def test(self):
+  def test_build_deletion_message(self):
     purchase = mock.single_purchase()
-    expected = "Ben\'s purchase of $10.0 on toast was deleted from the database."
+    expected = "your purchase of $10.0 on toast was deleted from the database."
     actual = parser.build_deletion_message(purchase)
     self.assertEqual(expected, actual)
 
