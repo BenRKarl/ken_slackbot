@@ -56,3 +56,7 @@ def get_debt_summary(biggest_spender, debtor):
   difference = biggest_spender[1] - debtor[1]
   amount_owed = difference / 2
   return (debtor_name, biggest_spender_name, amount_owed)
+
+def parse_purchase_amount(amount):
+  cleaned = amount.replace("$", "")
+  return float(cleaned)
