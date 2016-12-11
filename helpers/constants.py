@@ -16,7 +16,7 @@ def get_id_by_name(name):
 
 def get_help_message():
   return """Here are my commands:\n
-            1. To save a purchase: _@ken I spent 34.99 on tomatoes_\n
-            2. To check your monthly total: _@ken how much_\n
-            3. To see who owes who: _@ken who owes_
-            4. To get help: _@ken help_"""
+            1. To save a purchase: *_@ken I spent 34.99 on tomatoes_*\n
+            2. To check your monthly total: *_@ken how much_*\n
+            3. To see who owes who: *_@ken who owes_*\n
+            4. To get help: *_@ken help_*"""
