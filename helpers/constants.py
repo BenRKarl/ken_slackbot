@@ -14,6 +14,9 @@ def get_id_by_name(name):
 
   return ids[name]
 
+def default_response():
+  return "I don't understand... Enter *_@ken help_* for a list of commands."
+
 def no_purchase_response():
   return "That purchase was not found or has already been deleted."
 
@@ -22,4 +25,4 @@ def get_help_message():
             1. To save a purchase: *_@ken I spent 34.99 on tomatoes_*\n
             2. To check your monthly total: *_@ken how much_*\n
             3. To see who owes who: *_@ken who owes_*\n
-            4. To get help: *_@ken help_*"""
+            4. To delete the most recently added purchase: *_@ken delete_*"""

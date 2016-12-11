@@ -38,6 +38,9 @@ class Ken:
   def deletion_failed_message(self):
     return constants.no_purchase_response()
 
+  def default_response(self):
+    return constants.default_response()
+
   def handle_command(self, command, channel_id, user_id):
     self.set_current_user_id(user_id)
     self.set_current_channel_id(channel_id)
@@ -54,7 +57,7 @@ class Ken:
     elif cleaned.startswith('delete'):
       self.handle_purchase_deletion()
     else:
-      self.send_message("I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\"")
+      self.send_message(self.default_response())
 
   def handle_new_purchase(self, command):
     self.add_purchase(command)

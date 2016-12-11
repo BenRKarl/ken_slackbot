@@ -54,6 +54,12 @@ class KenTests(unittest.TestCase):
     expected = constants.no_purchase_response()
     self.assertEqual(expected, actual)
 
+  def test_default_message(self):
+    test_bot = Ken()
+    actual = test_bot.default_response()
+    expected = constants.default_response()
+    self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
