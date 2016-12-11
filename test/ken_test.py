@@ -1,5 +1,6 @@
 import unittest
 from bot.ken import Ken
+from helpers.constants import get_help_message
 mock_user_id = 'U0F19CBU2'
 mock_channel_id = 12345
 mock_user_name = 'Test'
@@ -40,6 +41,13 @@ class KenTests(unittest.TestCase):
     expected = '<@U0F19CBU2> owes <@U0F1FNUCQ> $100.23'
     actual = test_bot.debt_summary_message(test_summary)
     self.assertEqual(expected, actual)
+
+  def test_get_help_message(self):
+    test_bot = Ken()
+    actual = test_bot.get_help_message()
+    expected = get_help_message()
+    self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
