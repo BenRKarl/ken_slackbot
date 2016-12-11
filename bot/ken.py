@@ -37,14 +37,15 @@ class Ken:
   def handle_command(self, command, channel_id, user_id):
     self.set_current_user_id(user_id)
     self.set_current_channel_id(channel_id)
+    cleaned = message_parser.clean_command(command)
 
-    if command.startswith('i spent'):
-      self.handle_new_purchase(command)
-    elif command.startswith('how much'):
+    if cleaned.startswith('i spent'):
+      self.handle_new_purchase(cleaned)
+    elif cleaned.startswith('how much'):
       self.handle_get_total_request()
-    elif command.startswith('who owes'):
+    elif cleaned.startswith('who owes'):
       self.handle_debt_request()
-    elif command.startswith('help'):
+    elif cleaned.startswith('help'):
       self.handle_help_request()
     else:
       self.send_message("I don't get it... Try writing your command like this: \"I spent 10.00 on oatmeal\"")
