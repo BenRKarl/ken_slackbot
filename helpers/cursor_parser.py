@@ -62,3 +62,13 @@ def build_deletion_message(purchase):
   description = purchase["description"]
   return "your purchase of $" + str(amount) + " on " + description + " was deleted from the database."
 
+def list_purchases_message(purchase_list):
+  message = "this month you spent:\n"
+
+  for purchase in purchase_list:
+    amount = purchase["amount"]
+    description = purchase["description"]
+    item = "$" + str(amount) + " on " + description
+    message += item
+
+  return message
