@@ -1,4 +1,4 @@
-from helpers import message_parser
+from helpers import command_parser
 from helpers import parser
 from helpers import constants
 
@@ -44,7 +44,7 @@ class Ken:
   def handle_command(self, command, channel_id, user_id):
     self.set_current_user_id(user_id)
     self.set_current_channel_id(channel_id)
-    cleaned = message_parser.clean_command(command)
+    cleaned = command_parser.clean_command(command)
 
     if cleaned.startswith('i spent'):
       self.handle_new_purchase(cleaned)
@@ -66,7 +66,7 @@ class Ken:
   def add_purchase(self, command):
     user_name = self.get_current_user_name()
     parts = command.split()
-    amount = message_parser.parse_purchase_amount(parts[2])
+    amount = command_parser.parse_purchase_amount(parts[2])
     description = ' '.join(parts[4:])
 
     self.last_purchase = self.store.insert_purchase({
