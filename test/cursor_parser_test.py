@@ -48,5 +48,10 @@ class CursorTests(unittest.TestCase):
     actual = cursor_parser.build_deletion_message(purchase)
     self.assertEqual(expected, actual)
 
+  def test_list_purchases_message(self):
+    purchases = mock.multiple_purchases()
+    expected = "this month you spent:\n$10.0 on toast\n$25.0 on window cleaner"
+    actual = cursor_parser.list_purchases_message(purchases)
+
 if __name__ == '__main__':
   unittest.main()
