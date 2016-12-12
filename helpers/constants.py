@@ -1,3 +1,5 @@
+import random
+
 def get_name_by_id(user_id):
   names = {
     "U0F19CBU2": "Ben",
@@ -27,3 +29,15 @@ def get_help_message():
   3. To see who owes who: *_@ken who owes_*\n
   4. To delete the most recently added purchase: *_@ken delete_*
   5. To list all purchases made this month: *_@ken list_*"""
+
+def you_are_welcome():
+  responses = [
+    "you're welcome",
+    "no problem",
+    "you got it",
+    "fo sho",
+    "any time",
+    "my pleasure"
+  ]
+
+  return "/giphy " + random.choice(responses)
