@@ -112,11 +112,7 @@ class Ken:
     self.send_message(self.get_help_message())
 
   def handle_thank_you(self):
-    self.send_impersonal_message(constants.you_are_welcome())
-
-  def send_impersonal_message(self, message):
-    channel_id = self.get_current_channel_id()
-    self.chat.api_call("chat.postMessage", channel = channel_id, text = message, as_user = True)
+    self.send_message(constants.you_are_welcome())
 
   def send_message(self, message):
     user_id = self.get_current_user_id()

@@ -32,12 +32,12 @@ def get_help_message():
 
 def you_are_welcome():
   responses = [
-    "you're welcome",
-    "no problem",
-    "you got it",
-    "fo sho",
-    "any time",
-    "my pleasure"
+    "you're welcome!",
+    "no problem!",
+    "you got it!",
+    "fo sho!",
+    "any time!",
+    "my pleasure!"
   ]
 
-  return "/giphy " + random.choice(responses)
+  return random.choice(responses)
