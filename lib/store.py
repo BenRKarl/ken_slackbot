@@ -1,6 +1,6 @@
 import os
 import datetime
-from helpers import parser
+from helpers import cursor_parser
 from pymongo import MongoClient
 
 mongodb_uri = os.environ.get("MONGODB_URI")
@@ -25,7 +25,7 @@ def insert_purchase(body):
 def delete_purchase(purchase_id):
   if (purchase_id == None): return False
   cursor = purchases.find({ "_id": purchase_id})
-  purchase_list = parser.convert_to_list(cursor)
+  purchase_list = cursor_parser.convert_to_list(cursor)
 
   if (len(purchase_list) == 0): return False
 
@@ -34,18 +34,18 @@ def delete_purchase(purchase_id):
 
 def get_all_purchases_by_name(name):
   cursor = purchases.find({ "name": name })
-  purchase_list = parser.convert_to_list(cursor)
+  purchase_list = cursor_parser.convert_to_list(cursor)
   return purchase_list
 
 def get_recent_purchases_by_name(name):
   current_month = datetime.datetime.utcnow().month
   all_purchases = get_all_purchases_by_name(name)
-  recent_purchases = parser.filter_by_month(all_purchases, current_month)
+  recent_purchases = cursor_parser.filter_by_month(all_purchases, current_month)
   return recent_purchases
 
 def get_recent_purchase_totals():
   bens_purchases = get_recent_purchases_by_name('Ben')
   katies_purchases = get_recent_purchases_by_name('Katie')
-  bens_total = parser.summate_purchases(bens_purchases)
-  katies_total = parser.summate_purchases(katies_purchases)
+  bens_total = cursor_parser.summate_purchases(bens_purchases)
+  katies_total = cursor_parser.summate_purchases(katies_purchases)
   return [('Ben', bens_total), ('Katie', katies_total)]

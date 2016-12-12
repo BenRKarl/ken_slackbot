@@ -1,5 +1,5 @@
 from helpers import command_parser
-from helpers import parser
+from helpers import cursor_parser
 from helpers import constants
 
 class Ken:
@@ -80,21 +80,21 @@ class Ken:
     deleted = self.store.delete_purchase(self.last_purchase)
 
     if (deleted != False):
-      message = parser.build_deletion_message(deleted)
+      message = cursor_parser.build_deletion_message(deleted)
 
     self.send_message(message)
 
   def handle_get_total_request(self):
     user_name = self.get_current_user_name()
     purchases = self.store.get_recent_purchases_by_name(user_name)
-    total = parser.summate_purchases(purchases)
+    total = cursor_parser.summate_purchases(purchases)
     self.send_message('So far this month you\'ve spent: ' + str(total))
 
   def handle_debt_request(self):
     recent_purchases = self.store.get_recent_purchase_totals()
-    biggest_spender = parser.get_biggest_spender(recent_purchases)
-    debtor = parser.get_debtor(recent_purchases)
-    summary = parser.get_debt_summary(biggest_spender, debtor)
+    biggest_spender = cursor_parser.get_biggest_spender(recent_purchases)
+    debtor = cursor_parser.get_debtor(recent_purchases)
+    summary = cursor_parser.get_debt_summary(biggest_spender, debtor)
     message = self.debt_summary_message(summary)
     self.send_message(message)
 
