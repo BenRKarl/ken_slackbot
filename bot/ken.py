@@ -56,6 +56,8 @@ class Ken:
       self.handle_help_request()
     elif cleaned.startswith('delete'):
       self.handle_purchase_deletion()
+    elif cleaned.startswith('list'):
+      self.handle_purchase_list()
     else:
       self.send_message(self.default_response())
 
@@ -89,6 +91,12 @@ class Ken:
     purchases = self.store.get_recent_purchases_by_name(user_name)
     total = cursor_parser.summate_purchases(purchases)
     self.send_message('So far this month you\'ve spent: ' + str(total))
+
+  def handle_purchase_list(self):
+    user_name = self.get_current_user_name()
+    purchases = self.store.get_recent_purchases_by_name(user_name)
+    list_message = cursor_parser.list_purchases_message(purchases)
+    self.send_message(list_message)
 
   def handle_debt_request(self):
     recent_purchases = self.store.get_recent_purchase_totals()

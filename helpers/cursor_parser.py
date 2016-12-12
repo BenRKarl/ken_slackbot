@@ -68,7 +68,7 @@ def list_purchases_message(purchase_list):
   for purchase in purchase_list:
     amount = purchase["amount"]
     description = purchase["description"]
-    item = "$" + str(amount) + " on " + description
+    item = "$" + str(amount) + " on " + description + "\n"
     message += item
 
   return message
