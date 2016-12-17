@@ -3,8 +3,7 @@ from helpers import cursor_parser
 from helpers import constants
 
 class Ken:
-
-  def setup(self, options):
+  def __init__(self, options):
     self.chat = options["chat"]
     self.store = options["store"]
     self.dev = options["dev"]

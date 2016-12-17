@@ -31,8 +31,7 @@ if __name__ == "__main__":
   READ_WEBSOCKET_DELAY = 1
 
   if slack_client.rtm_connect():
-    ken = Ken()
-    ken.setup({
+    ken = Ken({
       "chat": slack_client,
       "store": store,
       "dev": is_dev_mode() })
