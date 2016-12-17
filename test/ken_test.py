@@ -49,6 +49,13 @@ class KenTests(unittest.TestCase):
     actual = test_bot.debt_summary_message(test_summary)
     self.assertEqual(expected, actual)
 
+  def test_last_month_summary_message(self):
+    test_bot = new_ken()
+    test_summary = ('Ben', 'Katie', 100.23)
+    expected = 'last month <@U0F19CBU2> owed <@U0F1FNUCQ> $100.23'
+    actual = test_bot.last_month_summary_message(test_summary)
+    self.assertEqual(expected, actual)
+
   def test_get_help_message(self):
     test_bot = new_ken()
     actual = test_bot.get_help_message()

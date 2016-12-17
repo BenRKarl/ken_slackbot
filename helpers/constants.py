@@ -33,8 +33,9 @@ def get_help_message():
   1. To save a purchase: *_@ken I spent 34.99 on tomatoes_*\n
   2. To check your monthly total: *_@ken how much_*\n
   3. To see who owes who: *_@ken who owes_*\n
-  4. To delete the most recently added purchase: *_@ken delete_*
-  5. To list all purchases made this month: *_@ken list_*"""
+  4. To delete the most recently added purchase: *_@ken delete_*\n
+  5. To list all purchases made this month: *_@ken list_*\n
+  6. To get a summary of last month: *_@ken last month_*"""
 
 def you_are_welcome():
   responses = [

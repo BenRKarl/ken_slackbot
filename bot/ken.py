@@ -27,7 +27,7 @@ class Ken:
       self.handle_debt_reminder()
 
   def handle_debt_reminder(self):
-    self.handle_last_month_summary(True)
+    self.handle_last_month_summary(True, True)
 
   def get_current_user_name(self):
     user_id = self.get_current_user_id()
@@ -39,6 +39,12 @@ class Ken:
     spender_id = constants.get_id_by_name(debt_summary[1])
     amount_owed = str(debt_summary[2])
     return '<@' + debtor_id + '> owes <@' + spender_id + '> $' + amount_owed
+
+  def last_month_summary_message(self, debt_summary):
+    debtor_id = constants.get_id_by_name(debt_summary[0])
+    spender_id = constants.get_id_by_name(debt_summary[1])
+    amount_owed = str(debt_summary[2])
+    return 'last month <@' + debtor_id + '> owed <@' + spender_id + '> $' + amount_owed
 
   def get_help_message(self):
     return constants.get_help_message()
@@ -118,12 +124,17 @@ class Ken:
     message = self.debt_summary_message(summary)
     self.send_message(message)
 
-  def handle_last_month_summary(self, generalize=False):
+  def handle_last_month_summary(self, generalize=False, present_tense=False):
     recent_purchases = self.store.get_last_months_totals()
     biggest_spender = cursor_parser.get_biggest_spender(recent_purchases)
     debtor = cursor_parser.get_debtor(recent_purchases)
     summary = cursor_parser.get_debt_summary(biggest_spender, debtor)
-    message = self.debt_summary_message(summary)
+
+    if present_tense:
+      message = self.debt_summary_message(summary)
+    else:
+      message = self.last_month_summary_message(summary)
+
     self.send_message(message, generalize)
 
   def handle_help_request(self):
@@ -134,7 +145,7 @@ class Ken:
 
   def personalized_prefix(self):
     user_id = self.get_current_user_id()
-    user_callout = "<@" + user_id + ">"
+    return "<@" + user_id + ">"
 
   def send_message(self, message, generalize=False):
     if generalize:
@@ -149,4 +160,4 @@ class Ken:
     else:
       assembled_message = prefix + ' ' + message
 
-    self.chat.api_call("chat.postMessage", channel = channel_id, text = personalized, as_user = True)
+    self.chat.api_call("chat.postMessage", channel = channel_id, text = assembled_message, as_user = True)
