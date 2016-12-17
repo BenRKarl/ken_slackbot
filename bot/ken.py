@@ -26,6 +26,9 @@ class Ken:
     if events.monthly_reminder(date):
       self.handle_debt_reminder()
 
+  def handle_debt_reminder(self):
+    self.handle_last_month_summary(True)
+
   def get_current_user_name(self):
     user_id = self.get_current_user_id()
     user_name = constants.get_name_by_id(user_id)
@@ -115,16 +118,13 @@ class Ken:
     message = self.debt_summary_message(summary)
     self.send_message(message)
 
-  def handle_last_month_summary(self):
+  def handle_last_month_summary(self, generalize=False):
     recent_purchases = self.store.get_last_months_totals()
     biggest_spender = cursor_parser.get_biggest_spender(recent_purchases)
     debtor = cursor_parser.get_debtor(recent_purchases)
     summary = cursor_parser.get_debt_summary(biggest_spender, debtor)
     message = self.debt_summary_message(summary)
-    self.send_general_message(message)
-
-  def handle_debt_reminder(self):
-    self.handle_last_month_summary()
+    self.send_message(message, generalize)
 
   def handle_help_request(self):
     self.send_message(self.get_help_message())
@@ -132,23 +132,21 @@ class Ken:
   def handle_thank_you(self):
     self.send_message(constants.you_are_welcome())
 
-  def message_prefix(self):
+  def personalized_prefix(self):
     user_id = self.get_current_user_id()
     user_callout = "<@" + user_id + ">"
 
-    if (self.dev):
-      return '[DEV] ' + user_callout
+  def send_message(self, message, generalize=False):
+    if generalize:
+      prefix = constants.default_user()
+      channel_id = constants.default_channel()
     else:
-      return user_callout
+      prefix = self.personalized_prefix()
+      channel_id = self.get_current_channel_id()
 
-  def send_message(self, message):
-    prefix = self.message_prefix()
-    channel_id = self.get_current_channel_id()
-    personalized = prefix + ' ' + message
+    if (self.dev):
+      assembled_message = '[DEV] ' + prefix + ' ' + message
+    else:
+      assembled_message = prefix + ' ' + message
+
     self.chat.api_call("chat.postMessage", channel = channel_id, text = personalized, as_user = True)
-
-  def send_general_message(self, message):
-    prefix = constants.default_user()
-    channel_id = constants.default_channel()
-    generalized = prefix + ' ' + message
-    self.chat.api_call("chat.postMessage", channel = channel_id, text = generalized, as_user = True)
