@@ -48,3 +48,42 @@ def you_are_welcome():
   ]
 
   return random.choice(responses)
+
+def get_greeting():
+  return random.choice(greetings())
+
+def greetings():
+  return [
+    'hey',
+    'hello',
+    'whats up',
+    'what up',
+    'what\'s up',
+    'what it is',
+    'sup',
+    'heyo',
+    'howdy',
+    'hi'
+  ]
+
+def merry_christmas():
+  base = ''
+  emojis = [
+    ':christmas_tree:',
+    ':santa:',
+    ':santa::skin-tone-2:',
+    ':santa::skin-tone-3:',
+    ':santa::skin-tone-4:',
+    ':santa::skin-tone-5:',
+    ':santa::skin-tone-6:',
+    ':gift:',
+    ':ribbon:',
+    ':snowflake:',
+    ':snowman:'
+  ]
+
+  for i in xrange(100):
+    base += random.choice(emojis) + ' '
+
+  return base
+

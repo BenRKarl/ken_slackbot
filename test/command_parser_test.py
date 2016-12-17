@@ -20,5 +20,10 @@ class CommandParserTests(unittest.TestCase):
     actual = command_parser.clean_command(mock_command)
     self.assertEqual(expected, actual)
 
+  def test_is_greeting(self):
+    mock_command = 'hello'
+    actual = command_parser.is_greeting(mock_command)
+    self.assertEqual(actual, True)
+
 if __name__ == '__main__':
   unittest.main()

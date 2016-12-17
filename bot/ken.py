@@ -76,12 +76,28 @@ class Ken:
       self.handle_thank_you()
     elif cleaned.startswith('last month'):
       self.handle_last_month_summary()
+    elif cleaned.startswith('poo'):
+      self.handle_poo_request()
+    elif command_parser.is_greeting(cleaned):
+      self.handle_greeting()
+    elif cleaned.startswith('merry christmas'):
+      self.handle_merry_christmas()
     else:
       self.send_message(self.default_response())
 
   def handle_new_purchase(self, command):
     self.add_purchase(command)
     self.send_message('Your purchase was added to the database!')
+
+  def handle_poo_request(self):
+    self.send_message(':poop:')
+
+  def handle_greeting(self):
+    random_greeting = constants.get_greeting()
+    self.send_message(random_greeting)
+
+  def handle_merry_christmas(self):
+    self.send_message(constants.merry_christmas())
 
   def add_purchase(self, command):
     user_name = self.get_current_user_name()
