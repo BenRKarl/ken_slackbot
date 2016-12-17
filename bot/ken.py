@@ -65,6 +65,8 @@ class Ken:
       self.handle_purchase_list()
     elif cleaned.startswith('thank'):
       self.handle_thank_you()
+    elif cleaned.startswith('last month'):
+      self.handle_last_month_summary()
     else:
       self.send_message(self.default_response())
 
@@ -113,13 +115,16 @@ class Ken:
     message = self.debt_summary_message(summary)
     self.send_message(message)
 
-  def handle_debt_reminder(self):
-    recent_purchases = self.store.get_recent_purchase_totals()
+  def handle_last_month_summary(self):
+    recent_purchases = self.store.get_last_months_totals()
     biggest_spender = cursor_parser.get_biggest_spender(recent_purchases)
     debtor = cursor_parser.get_debtor(recent_purchases)
     summary = cursor_parser.get_debt_summary(biggest_spender, debtor)
     message = self.debt_summary_message(summary)
     self.send_general_message(message)
+
+  def handle_debt_reminder(self):
+    self.handle_last_month_summary()
 
   def handle_help_request(self):
     self.send_message(self.get_help_message())

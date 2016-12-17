@@ -43,9 +43,28 @@ def get_recent_purchases_by_name(name):
   recent_purchases = cursor_parser.filter_by_month(all_purchases, current_month)
   return recent_purchases
 
+def get_last_months_purchases_by_name(name):
+  last_month = get_last_month_num(datetime.datetime.utcnow().month)
+  all_purchases = get_all_purchases_by_name(name)
+  last_months_purchases = cursor_parser.filter_by_month(all_purchases, last_month)
+  return last_months_purchases
+
+def get_last_month_num(num):
+  if (num == 1):
+    return 12
+  else:
+    return num - 1
+
 def get_recent_purchase_totals():
   bens_purchases = get_recent_purchases_by_name('Ben')
   katies_purchases = get_recent_purchases_by_name('Katie')
+  bens_total = cursor_parser.summate_purchases(bens_purchases)
+  katies_total = cursor_parser.summate_purchases(katies_purchases)
+  return [('Ben', bens_total), ('Katie', katies_total)]
+
+def get_last_months_totals():
+  bens_purchases = get_last_months_purchases_by_name('Ben')
+  katies_purchases = get_last_months_purchases_by_name('Katie')
   bens_total = cursor_parser.summate_purchases(bens_purchases)
   katies_total = cursor_parser.summate_purchases(katies_purchases)
   return [('Ben', bens_total), ('Katie', katies_total)]
