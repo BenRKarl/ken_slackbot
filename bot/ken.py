@@ -26,6 +26,9 @@ class Ken:
     if events.monthly_reminder(date):
       self.handle_debt_reminder()
 
+    if events.is_christmas(date):
+      self.handle_merry_christmas(True)
+
   def handle_debt_reminder(self):
     self.handle_last_month_summary(True, True)
 
@@ -96,8 +99,8 @@ class Ken:
     random_greeting = constants.get_greeting()
     self.send_message(random_greeting)
 
-  def handle_merry_christmas(self):
-    self.send_message(constants.merry_christmas())
+  def handle_merry_christmas(self, generalize=False):
+    self.send_message(constants.merry_christmas(), generalize)
 
   def add_purchase(self, command):
     user_name = self.get_current_user_name()

@@ -13,5 +13,10 @@ class EventsTests(unittest.TestCase):
     actual = events.monthly_reminder(date)
     self.assertEqual(actual, False)
 
+  def test_is_christmas(self):
+    date = datetime.datetime(2017, 12, 25, 6, 0, 0, 0)
+    actual = events.is_christmas(date)
+    self.assertEqual(actual, True)
+
 if __name__ == '__main__':
     unittest.main()
