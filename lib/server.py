@@ -8,6 +8,13 @@ BOT_ID = os.environ.get("BOT_ID")
 AT_BOT = "<@" + BOT_ID + ">"
 slack_client = SlackClient(os.environ.get("SLACK_BOT_TOKEN"))
 
+def is_dev_mode():
+  env = os.environ.get("KEN_ENV")
+  if (env == 'development'):
+    return True
+
+  return False
+
 def parse_slack_output(slack_rtm_output):
   output_list = slack_rtm_output
 
@@ -27,7 +34,8 @@ if __name__ == "__main__":
     ken = Ken()
     ken.setup({
       "chat": slack_client,
-      "store": store })
+      "store": store,
+      "dev": is_dev_mode() })
 
     print("Ken is listening!")
 

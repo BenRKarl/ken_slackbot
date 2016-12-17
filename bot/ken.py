@@ -7,6 +7,7 @@ class Ken:
   def setup(self, options):
     self.chat = options["chat"]
     self.store = options["store"]
+    self.dev = options["dev"]
     self.last_purchase = None
 
   def set_current_user_id(self, user_id):
@@ -114,9 +115,17 @@ class Ken:
   def handle_thank_you(self):
     self.send_message(constants.you_are_welcome())
 
-  def send_message(self, message):
+  def message_prefix(self):
     user_id = self.get_current_user_id()
-    channel_id = self.get_current_channel_id()
     user_callout = "<@" + user_id + ">"
-    personalized = user_callout + ' ' + message
+
+    if (self.dev):
+      return '[DEV] ' + user_callout
+    else:
+      return user_callout
+
+  def send_message(self, message):
+    prefix = self.message_prefix()
+    channel_id = self.get_current_channel_id()
+    personalized = prefix + ' ' + message
     self.chat.api_call("chat.postMessage", channel = channel_id, text = personalized, as_user = True)
