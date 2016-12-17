@@ -1,4 +1,5 @@
 import time
+import datetime
 import os
 import store
 from slackclient import SlackClient
@@ -43,6 +44,8 @@ if __name__ == "__main__":
 
       if command and channel:
         ken.handle_command(command, channel, user)
+
+      ken.update_time(datetime.datetime.utcnow())
 
       time.sleep(READ_WEBSOCKET_DELAY)
 

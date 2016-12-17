@@ -1,5 +1,11 @@
 import random
 
+def default_channel():
+  return 'C0F19CV96'
+
+def default_user():
+  return '<!here>'
+
 def get_name_by_id(user_id):
   names = {
     "U0F19CBU2": "Ben",

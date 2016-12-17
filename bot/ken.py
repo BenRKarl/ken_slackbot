@@ -1,6 +1,7 @@
 from helpers import command_parser
 from helpers import cursor_parser
 from helpers import constants
+from helpers import events
 
 class Ken:
   def __init__(self, options):
@@ -20,6 +21,10 @@ class Ken:
 
   def get_current_channel_id(self):
     return self.current_channel_id
+
+  def update_time(self, date):
+    if events.monthly_reminder(date):
+      self.handle_debt_reminder()
 
   def get_current_user_name(self):
     user_id = self.get_current_user_id()
@@ -108,6 +113,14 @@ class Ken:
     message = self.debt_summary_message(summary)
     self.send_message(message)
 
+  def handle_debt_reminder(self):
+    recent_purchases = self.store.get_recent_purchase_totals()
+    biggest_spender = cursor_parser.get_biggest_spender(recent_purchases)
+    debtor = cursor_parser.get_debtor(recent_purchases)
+    summary = cursor_parser.get_debt_summary(biggest_spender, debtor)
+    message = self.debt_summary_message(summary)
+    self.send_general_message(message)
+
   def handle_help_request(self):
     self.send_message(self.get_help_message())
 
@@ -128,3 +141,9 @@ class Ken:
     channel_id = self.get_current_channel_id()
     personalized = prefix + ' ' + message
     self.chat.api_call("chat.postMessage", channel = channel_id, text = personalized, as_user = True)
+
+  def send_general_message(self, message):
+    prefix = constants.default_user()
+    channel_id = constants.default_channel()
+    generalized = prefix + ' ' + message
+    self.chat.api_call("chat.postMessage", channel = channel_id, text = generalized, as_user = True)
