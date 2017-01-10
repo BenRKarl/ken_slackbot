@@ -1,3 +1,5 @@
-pymongo==3.3.1
-slackclient==1.0.2
-virtualenv==15.0.3
+pymongo==3.4.0
+requests==2.12.4
+six==1.10.0
+slackclient==1.0.4
+websocket-client==0.40.0
