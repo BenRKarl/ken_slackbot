@@ -47,7 +47,6 @@ class KenTests(unittest.TestCase):
   def test_debt_summary_message(self):
     test_bot = new_ken(chat=MagicMock(), store=mock_store, dev=False)
     test_bot.handle_command('who owes', 'U0F19CBU2', 'C0F19CV96')
-    expected = '<@U0F19CBU2> owes <@U0F1FNUCQ> $100.23'
     test_bot.chat.api_call.assert_called_with('chat.postMessage',
                                               as_user=True,
                                               channel='U0F19CBU2',
@@ -55,10 +54,11 @@ class KenTests(unittest.TestCase):
 
   def test_last_month_summary_message(self):
     test_bot = new_ken(chat=MagicMock(), store=mock_store, dev=False)
-    test_summary = ('Ben', 'Katie', 100.23)
-    expected = 'last month <@U0F19CBU2> owed <@U0F1FNUCQ> $100.23'
-    actual = test_bot.last_month_summary_message(test_summary)
-    self.assertEqual(expected, actual)
+    test_bot.handle_command('last month', 'U0F19CBU2', 'C0F19CV96')
+    test_bot.chat.api_call.assert_called_with('chat.postMessage',
+                                              as_user=True,
+                                              channel='U0F19CBU2',
+                                              text='<@C0F19CV96> last month <@U0F1FNUCQ> owed <@U0F19CBU2> $25.0')
 
   def test_get_help_message(self):
     test_bot = new_ken(chat=MagicMock(), store=mock_store, dev=False)
