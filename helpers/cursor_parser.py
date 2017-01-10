@@ -10,7 +10,7 @@ def summate_purchases(purchase_list):
     return purchase_list[0]["amount"]
   else:
     totals = map(lambda a: a["amount"], purchase_list)
-    return reduce(lambda a, b: a + b, totals)
+    return sum(num for num in totals)
 
 def filter_by_month(purchase_list, month_number):
   filtered = []
