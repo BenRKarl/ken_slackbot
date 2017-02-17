@@ -44,7 +44,7 @@ def get_debtor(totals_list):
     if lowest_amount == None:
       lowest_amount = spent
 
-    if spent < lowest_amount:
+    if spent <= lowest_amount:
       lowest_amount = spent
       debtor = total
 
