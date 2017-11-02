@@ -22,7 +22,8 @@ class CursorTests(unittest.TestCase):
   def test_filter_by_month(self):
     purchases = mock.purchases_in_different_months()
     month = 11
-    filtered = cursor_parser.filter_by_month(purchases, month)
+    year = 2016
+    filtered = cursor_parser.filter_by_current_month(purchases, month, year)
     self.assertEqual(len(filtered), 1)
 
   def test_get_biggest_spender(self):

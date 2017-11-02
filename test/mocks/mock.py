@@ -21,6 +21,13 @@ non_november_purchase = {
     "name": "Ben",
     "description": "may stuff" }
 
+same_month_diff_year = {
+    "date": datetime.datetime(2017, 11, 17, 2, 11, 45, 356000),
+    "amount": 22.0,
+    "_id": "582d32r117942gfds5f10dc8",
+    "name": "Ben",
+    "description": "diff year stuff" }
+
 def single_purchase():
     return first_mock_purchase
 
@@ -31,4 +38,4 @@ def multiple_purchases():
     return [ first_mock_purchase, second_mock_purchase ]
 
 def purchases_in_different_months():
-    return [ first_mock_purchase, non_november_purchase ]
+    return [ first_mock_purchase, non_november_purchase, same_month_diff_year ]

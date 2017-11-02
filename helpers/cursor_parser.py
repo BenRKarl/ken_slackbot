@@ -12,11 +12,11 @@ def summate_purchases(purchase_list):
     totals = map(lambda a: a["amount"], purchase_list)
     return reduce(lambda a, b: a + b, totals)
 
-def filter_by_month(purchase_list, month_number):
+def filter_by_current_month(purchase_list, month_number, year_number):
   filtered = []
 
   for purchase in purchase_list:
-    if purchase["date"].month == month_number:
+    if purchase["date"].month == month_number and purchase["date"].year == year_number:
       filtered.append(purchase)
 
   return filtered
