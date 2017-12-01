@@ -1,6 +1,6 @@
 def monthly_reminder(date):
   first_day = date.day == 1
-  eight_am_ET = date.hour == 3
+  eight_am_ET = date.hour == 5
   zero_min = date.minute == 0
   zero_sec = date.second == 0
 
@@ -9,7 +9,7 @@ def monthly_reminder(date):
 def is_christmas(date):
   is_december = date.month == 12
   is_twentyfifth = date.day == 25
-  eight_am_ET = date.hour == 6
+  eight_am_ET = date.hour == 12
   zero_min = date.minute == 0
   zero_sec = date.second == 0
 
