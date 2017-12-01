@@ -65,6 +65,7 @@ class Ken:
 
     if cleaned.startswith('i spent'):
       self.handle_new_purchase(cleaned)
+      self.handle_debt_request()
     elif cleaned.startswith('how much'):
       self.handle_get_total_request()
     elif cleaned.startswith('who owes'):
