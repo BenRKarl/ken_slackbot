@@ -21,9 +21,18 @@ def filter_by_current_month(purchase_list, month_number, year_number):
 
   return filtered
 
+def check_equal(totals_list):
+  total_values = map(lambda summary: summary[1], totals_list)
+  total_sum = reduce(lambda acc, total: acc + total, total_values)
+  average = total_sum / len(totals_list)
+  return average == totals_list[0][1]
+
 def get_biggest_spender(totals_list):
   biggest_spender = None
   highest_amount = 0
+
+  if check_equal(totals_list):
+    return None
 
   for total in totals_list:
     spent = total[1]
@@ -37,6 +46,9 @@ def get_biggest_spender(totals_list):
 def get_debtor(totals_list):
   debtor = None
   lowest_amount = None
+
+  if check_equal(totals_list):
+    return None
 
   for total in totals_list:
     spent = total[1]

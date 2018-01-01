@@ -31,6 +31,18 @@ class CursorTests(unittest.TestCase):
     actual = cursor_parser.get_biggest_spender(mock_totals_list)
     self.assertEqual(expected, actual)
 
+  def test_check_equal(self):
+    mock_totals_list = [('Katie', 0), ('Ben', 0)]
+    expected = True
+    actual = cursor_parser.check_equal(mock_totals_list)
+    self.assertEqual(expected, actual)
+
+  def test_check_equal_false(self):
+    mock_totals_list = [('Katie', 2), ('Ben', 0)]
+    expected = False
+    actual = cursor_parser.check_equal(mock_totals_list)
+    self.assertEqual(expected, actual)
+
   def test_get_debtor(self):
     expected = mock_totals_list[1]
     actual = cursor_parser.get_debtor(mock_totals_list)
