@@ -66,6 +66,13 @@ class CursorTests(unittest.TestCase):
     actual = cursor_parser.get_debt_summary(biggest_spender, debtor)
     self.assertEqual(expected, actual)
 
+  def test_get_amount_owed_none(self):
+    biggest_spender = None
+    debtor = None
+    expected = None
+    actual = cursor_parser.get_debt_summary(biggest_spender, debtor)
+    self.assertEqual(expected, actual)
+
   def test_build_deletion_message(self):
     purchase = mock.single_purchase()
     expected = "your purchase of $10.0 on toast was deleted from the database."

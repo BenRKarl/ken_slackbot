@@ -38,12 +38,18 @@ class Ken:
     return user_name
 
   def debt_summary_message(self, debt_summary):
+    if debt_summary == None:
+      return constants.no_one_owes_message()
+
     debtor_id = constants.get_id_by_name(debt_summary[0])
     spender_id = constants.get_id_by_name(debt_summary[1])
     amount_owed = str(debt_summary[2])
     return '<@' + debtor_id + '> owes <@' + spender_id + '> $' + amount_owed
 
   def last_month_summary_message(self, debt_summary):
+    if debt_summary == None:
+      return constants.no_one_owes_message()
+
     debtor_id = constants.get_id_by_name(debt_summary[0])
     spender_id = constants.get_id_by_name(debt_summary[1])
     amount_owed = str(debt_summary[2])

@@ -22,6 +22,9 @@ def get_id_by_name(name):
 
   return ids[name]
 
+def no_one_owes_message():
+  return "No one owes anyone anything!"
+
 def default_response():
   return "I don't understand... Enter *_@ken help_* for a list of commands."
 
