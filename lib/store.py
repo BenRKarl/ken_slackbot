@@ -46,9 +46,9 @@ def get_recent_purchases_by_name(name):
 
 def get_last_months_purchases_by_name(name):
   last_month = get_last_month_num(datetime.datetime.utcnow().month)
-  current_year = datetime.datetime.utcnow().year
+  last_month_year = get_last_month_year_num(last_month)
   all_purchases = get_all_purchases_by_name(name)
-  last_months_purchases = cursor_parser.filter_by_current_month(all_purchases, last_month, current_year)
+  last_months_purchases = cursor_parser.filter_by_current_month(all_purchases, last_month, last_month_year)
   return last_months_purchases
 
 def get_last_month_num(num):
@@ -56,6 +56,14 @@ def get_last_month_num(num):
     return 12
   else:
     return num - 1
+
+def get_last_month_year_num(last_month):
+  current_year = datetime.datetime.utcnow().year
+
+  if (last_month == 12):
+    return current_year - 1
+  else:
+    return current_year
 
 def get_recent_purchase_totals():
   bens_purchases = get_recent_purchases_by_name('Ben')
